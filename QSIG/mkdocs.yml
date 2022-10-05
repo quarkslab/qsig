@@ -1,0 +1,41 @@
+site_name: QSig
+site_description: QSig - Binary-only patch probing
+repo_url: "https://github.com/quarkslab/qsig"
+repo_name: "qsig"
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+
+
+nav:
+  - Overview: index.md
+  - Installation: installation.md
+#  - Docker: docker.md
+#  - Building: building.md
+#  - Querying: query.md
+#  - Innerworkings: explanations.md
+#  - Contribution: contribute.md
+#  - Roadmap: roadmap.md
+#  - Limitations: limitations.md
+  - API Reference:
+      - detector: reference/detector/detector.md
+      - generator: reference/generator/generator.md
+      - sig: reference/sig/sig.md
+      - app: reference/app.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          selection:
+            docstring_style: "restructured-text"
+      watch:
+        - qsig/
+  - search

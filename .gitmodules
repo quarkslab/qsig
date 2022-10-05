@@ -1,0 +1,3 @@
+[submodule "bincat/bincat"]
+	path = bincat/bincat
+	url = git@github.com:airbus-seclab/bincat.git

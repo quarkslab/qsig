@@ -1,0 +1,134 @@
+syntax = "proto3";
+package qsign;
+
+import "google/protobuf/timestamp.proto";
+
+message ChunkSignature {
+    enum ArtefactType {
+        ARTEFACT_TYPE_UNKNOWN = 0;
+        ARTEFACT_TYPE_STRINGS = 1;
+        ARTEFACT_TYPE_CONSTANTS = 2;
+        ARTEFACT_TYPE_CALLS = 3;
+        ARTEFACT_TYPE_CONDITIONS = 4;
+    }
+
+    message StringsSignature {
+        bytes yara = 1;
+        repeated string strings = 2;
+    }
+
+    message Identifier {
+        uint32 index = 1; // Index number in binary (e.g 3rd chunk, 221 function.)
+        uint32 size = 2; // Size of the object
+        repeated string strings = 3; // Strings
+        repeated uint32 constants = 4; // Constants
+        repeated string calls = 5; // Extern calls (e.g. to library)
+    }
+
+    message ChunkIdentifier {
+        Identifier identity = 1;
+        string func_name = 5; // Name of the function of which the chunk belongs
+        uint32 func_index = 6;
+    }
+
+    message FunctionIdentifier {
+        Identifier identity = 1;
+        string name = 2;
+    }
+
+    message ConstantsSignature {
+        message Constant {
+            uint32 value = 1;
+            uint32 vuln_count = 2;
+            uint32 fix_count = 3;
+            bool new = 4;
+        }
+
+        repeated Constant constants = 1;
+        // repeated uint64 constants = 1;
+    }
+
+    message CallsSignature {
+        message Call {
+            FunctionIdentifier function = 1;
+            uint64 in_degree = 2;
+            uint64 out_degree = 3;
+            uint64 caller_count = 4;
+        }
+
+        Call caller = 1;
+        repeated Call callees = 2;
+    }
+
+    message ConditionSignature {
+        message Condition {
+            enum LabelType {
+                LABEL_TYPE_UNKNOWN = 0;
+                LABEL_TYPE_CONSTANT = 1;
+                LABEL_TYPE_ARGUMENT = 2;
+                LABEL_TYPE_CALL = 3;
+            }
+
+            message Element {
+                LabelType type = 1;
+                uint64 value = 2;
+            }
+
+            repeated Element elements = 1;
+            uint32 count = 2;
+        }
+
+        repeated Condition conditions = 1;
+    }
+
+    ChunkIdentifier chunk = 1;
+
+    repeated ArtefactType type = 2;
+    StringsSignature string_sig = 3;
+    ConstantsSignature constant_sig = 4;
+    CallsSignature call_sig = 5;
+    ConditionSignature condition_sig = 6;
+}
+
+message FileSignature {
+    enum FileType {
+        FILE_TYPE_UNKNOWN = 0;
+        FILE_TYPE_OBJECT = 1; // .o files
+        FILE_TYPE_STATIC = 2; // .a files
+        FILE_TYPE_SHARED = 3; // .so files
+        FILE_TYPE_EXEC = 4;   // executables
+        FILE_TYPE_BLOB = 5;   // other types
+    }
+
+    message FileMeta {
+        string name = 1;
+        FileType type = 2;
+        uint64 size = 3;
+        string sha256 = 4;
+    }
+
+    FileMeta file_meta = 1;
+    repeated ChunkSignature chunk_signatures = 2;
+}
+
+message CVESignature {
+
+    enum Architecture {
+        ARCHITECTURE_UNKNOWN = 0;
+        ARCHITECTURE_X86 = 1;
+        ARCHITECTURE_X64 = 2;
+        ARCHITECTURE_ARM = 3;
+        ARCHITECTURE_ARM64 = 4;
+    }
+
+    message Meta {
+        string author = 1;
+        string cve_id = 2;
+        string fix_commit = 3;
+        google.protobuf.Timestamp creation = 4;
+        Architecture generated_from = 5;
+    }
+
+    Meta meta = 1;
+    repeated FileSignature file_signatures = 2;
+}

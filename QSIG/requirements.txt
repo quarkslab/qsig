@@ -1,0 +1,9 @@
+bgraph
+sh
+typer
+yara-python
+editdistance
+python-magic
+firmwareextractor
+quokka-project
+python-json-logger

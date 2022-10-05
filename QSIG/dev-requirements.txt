@@ -1,0 +1,5 @@
+networkx
+ipython
+memory-profiler
+mypy-protobuf
+mypy

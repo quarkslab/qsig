@@ -36,6 +36,11 @@ X86_GPR = ["eax", "ecx", "edx", "ebx", "ebp", "esi", "edi", "esp"]
 """Registers used in x86"""
 
 
+def transform_enum(enum_list: List) -> List[str]:
+    """Transform an enum into a liste of enum name"""
+    return [x.name for x in enum_list]
+
+
 def get_platform_specific(
     platform: quokka.analysis.Platform, address_size: int
 ) -> Dict[str, Union[str, int]]:
@@ -1134,7 +1139,7 @@ class Bincat:
 
         if function.start not in self.tainted_cmps:
             arch = function.program.arch
-            compared_mnemonics = quokka.analysis.transform_enum(
+            compared_mnemonics = transform_enum(
                 arch.compared_mnemonics
             )
 

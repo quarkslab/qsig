@@ -316,7 +316,7 @@ class ChunkSignature(Signature):
 
     @artifact_type.setter
     def artifact_type(self, _) -> None:
-        raise NotImplemented
+        raise NotImplementedError
 
     def add_artifact_type(self, type_: qsig.sig.artefact.Artefact) -> None:
         """Add an artifact tot he list of artifacts"""
@@ -454,7 +454,7 @@ class ChunkSignature(Signature):
 
     @calls_signature.setter
     def calls_signature(self, _):
-        raise NotImplemented
+        raise NotImplementedError
 
     def add_call_signature(
         self,

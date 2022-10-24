@@ -509,7 +509,7 @@ class Rule:
         if regex == list:
             for idx, _ in enumerate(regex):
                 self.add_strings(
-                    strings=regex_template % regex[idx],
+                    string=regex_template % regex[idx],
                     modifiers=modifiers,
                     identifier=identifier,
                     condition=condition,
@@ -522,7 +522,7 @@ class Rule:
                 )
         else:
             self.add_strings(
-                strings=regex_template % regex,
+                string=regex_template % regex,
                 modifiers=modifiers,
                 identifier=identifier,
                 condition=condition,
@@ -566,7 +566,7 @@ class Rule:
                 data = "{%s}" % raw_to_hex(data)
 
         self.add_strings(
-            strings=data,
+            string=data,
             modifiers=modifiers,
             identifier=identifier,
             condition=condition,
@@ -596,7 +596,7 @@ class Rule:
         if data == list:
             for bin_str in data:
                 self.add_strings(
-                    strings=binary_template % bin_str,
+                    string=binary_template % bin_str,
                     modifiers=modifiers,
                     identifier=identifier,
                     condition=condition,
@@ -610,7 +610,7 @@ class Rule:
 
         else:
             self.add_strings(
-                strings=binary_template % data,
+                string=binary_template % data,
                 modifiers=modifiers,
                 identifier=identifier,
                 condition=condition,

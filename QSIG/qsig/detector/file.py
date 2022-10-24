@@ -229,7 +229,7 @@ class FileDetector(Detector):
             firmextractor.fs.FileType.STATIC,
             firmextractor.fs.FileType.BLOB,
         ):
-            raise NotImplemented("PreMatch on STATIC/BLOB no implemented.")
+            raise NotImplementedError("PreMatch on STATIC/BLOB no implemented.")
 
         return self._valid_targets
 

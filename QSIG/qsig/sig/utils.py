@@ -5,7 +5,6 @@ import logging
 import pathlib
 
 import lief
-import tlsh
 from typing import List, Iterable, Any, Dict, Optional, Union
 
 import quokka.exc

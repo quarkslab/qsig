@@ -8,6 +8,16 @@ developer computer. It should not be seen as a working **tool** but merely as a
 improved documentation and supplementary material for the paper and the
 manuscript.
 
+## Installation
+
+_Needs at least Python 3.8 and only used on Debian 11_
+
+* Install QSig dependencies:
+  - First, install `firmextractor` from this repo
+  - Install other python requirements: `pip install -r requirements.txt`
+
+* Install QSig: `pip install .`
+
 ## Dependencies
 
 QSig uses several dependencies:
@@ -47,9 +57,3 @@ image into something usable.
 ## Support
 
 No support is available for QSig
-
-## Roadmap
-
-To improve QSig, we should add more features such as:
-
-* "CALL ARGS"

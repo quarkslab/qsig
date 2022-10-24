@@ -1,5 +1,6 @@
 bgraph
 sh
+lief
 typer
 yara-python
 editdistance

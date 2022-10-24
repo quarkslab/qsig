@@ -2,7 +2,7 @@ import collections
 import logging
 import pathlib
 import re
-from typing import Optional, Generator, List, Iterable, DefaultDict, Counter
+from typing import Optional, Generator, List, DefaultDict, Counter
 from typing_extensions import TypedDict
 import typer
 
@@ -64,7 +64,7 @@ def generate_multiple(
 
         try:
             if not cve.valid:
-                logger.info(f"CVE %s is not valid", cve.name)
+                logger.info(f"CVE {cve.name} is not valid")
                 continue
         except qsig.exc.CveException:
             continue
@@ -105,15 +105,15 @@ def generate(
 
     try:
         if not cve.valid:
-            logger.debug(f"CVE is invalid - trying to continue.")
+            logger.debug("CVE is invalid - trying to continue.")
     except qsig.exc.CveException:
         logger.error("Unable to load the CVE.")
         raise typer.Exit(code=1)
 
     try:
         signature_path = qsig.generator.generate_signature(cve, signature_path, arch)
-    except qsig.GeneratorException as e:
-        logger.error(e)
+    except qsig.GeneratorException as exc:
+        logger.error(exc)
         raise typer.Exit(code=1)
 
     logger.info(
@@ -166,16 +166,16 @@ def detector(
         signature_path, program_loader, bgraph=bgraph
     )
 
-    logger.info(f"Successfully loaded %d detectors", len(detectors))
+    logger.info(f"Successfully loaded {len(detectors)} detectors")
 
     if not detectors:
-        logger.info(f"No signatures found, abort.")
+        logger.info("No signatures found, abort.")
         raise typer.Exit(code=1)
 
     for cve_detector in detectors:
-        logger.info(f"%s", cve_detector)
+        logger.info(cve_detector)
 
-    logger.info(f"Extract and mount filesystem")
+    logger.info("Extract and mount filesystem")
     # TODO(dm) Better mechanism for accepting archives
     if archive_path.suffix == ".zip":
         pixel = firmextractor.pixel.Pixel(archive_path)
@@ -211,8 +211,8 @@ def detector(
                     )
                     try:
                         result = cve_detector.match(firmware_file)
-                    except (qsig.exc.DetectorException, Exception) as e:
-                        logger.exception(e)
+                    except (qsig.exc.DetectorException, Exception) as exc:
+                        logger.exception(exc)
                         results[cve_detector.cve_id]["failed"] += 1
                         continue
 

@@ -13,7 +13,7 @@ from qsig.exc import (
 )
 from qsig.logger import Verbosity, setup_logger
 from qsig.program import ProgramLoader, SingleProgramLoader, MultipleProgramLoader
-from qsig.settings import Settings as Settings
+from qsig.settings import Settings
 
 # Must be *last*
 from qsig.app import app

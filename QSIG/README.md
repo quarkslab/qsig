@@ -1,6 +1,9 @@
 # QSig
 
-QSig is the prototype developped to solve the _Firmware Matching Problem_ using
+This repository includes research work done by Alexis Challande at Quarkslab as part of his
+*Towards 1-day Vulnerability Detection using Semantic Patch Signatures* Phd thesis.
+
+QSig is the prototype developed to solve the _Firmware Matching Problem_ using
 the _Filtering-Selecting-Matching_ strategy.
 
 The code here is **highly** experimental, and will probably work only on the
@@ -40,12 +43,10 @@ The _generator_ generates a signature from the difference between two binaries.
 To find the named / addresses of the function changed, it uses the
 `functions_by_file` method of the `Vulnerability` class. This is implemented
 currently for two backends: artifacts from AOSP CVE dataset
-[aosp_dataset](https://github.com/quarkslab/aosp_dataset) and the CGC
-vulnerabilities.
+[aosp_dataset](https://github.com/quarkslab/aosp_dataset) and the [Cyber Grand Challenge](https://www.darpa.mil/program/cyber-grand-challenge) vulnerabilities.
 
 The generator's output is a signature, in the protobuf format.
-The definition of the signature is found in
-[signature.proto](qsig/signature.proto).
+The definition of the signature is found in [signature.proto](qsig/signature.proto).
 
 ### Detector
 
